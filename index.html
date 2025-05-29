@@ -1,84 +1,68 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://newsapi.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://newsapi.org; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
     <title>حذيفه الحذيفي - مهندس تقنية معلومات</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .card {
-            background: rgba(255,255,255,0.1);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 600px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .avatar:hover { transform: scale(1.1) rotate(15deg); }
-        h1 { font-size: 2rem; margin: 20px 0 10px; }
-        .title { font-size: 1.1rem; opacity: 0.8; margin-bottom: 20px; }
-        .desc { line-height: 1.6; margin-bottom: 30px; opacity: 0.9; }
-        .links { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .btn {
-            padding: 10px 20px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        @media (max-width: 600px) {
-            .card { padding: 20px; margin: 10px; }
-            h1 { font-size: 1.5rem; }
-            .links { flex-direction: column; align-items: center; }
-        }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <div class="avatar" onclick="this.style.transform='rotate(360deg) scale(1.2)'; setTimeout(()=>this.style.transform='', 1000)">ح</div>
-        <h1>حذيفه عبدالمعز الحذيفي</h1>
-        <div class="title">مهندس تقنية معلومات</div>
-        <div class="desc">
-            مرحباً بكم في موقعي الشخصي. أنا مهندس تقنية معلومات متخصص في تطوير الويب وقواعد البيانات.
-            أسعى لتطوير حلول تقنية مبتكرة وفعالة.
-        </div>
-        <div class="links">
-            <a href="mailto:hodifaabdhalmoaz@gmail.com" class="btn">📧 البريد</a>
-            <a href="https://github.com/HA1234098765" class="btn" target="_blank">💻 GitHub</a>
-            <a href="https://www.linkedin.com/in/hodifa-al-hodify-30644b289" class="btn" target="_blank">💼 LinkedIn</a>
-        </div>
-        <br><br>
-        <div style="font-size: 0.9rem; opacity: 0.7;">
-            📱 +967 777548421 | 📱 +967 718706242
-        </div>
-    </div>
-</body>
+    <meta name="description" content="الموقع الشخصي لحذيفه عبدالمعز الحذيفي، مهندس تقنية معلومات متخصص في تطوير الويب وقواعد البيانات" />
+    <meta name="keywords" content="مهندس تقنية معلومات, تطوير ويب, Laravel, قواعد البيانات, برمجة" />
+    <meta name="author" content="حذيفه عبدالمعز الحذيفي" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/x-icon" href="/hodifa-tech-profile/favicon.ico" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="حذيفه الحذيفي - مهندس تقنية معلومات" />
+    <meta property="og:description" content="الموقع الشخصي لحذيفه عبدالمعز الحذيفي، مهندس تقنية معلومات متخصص في تطوير الويب وقواعد البيانات" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hodifa-portfolio.com" />
+    <meta property="og:image" content="https://hodifa-portfolio.com/og-image.jpg" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="حذيفه الحذيفي - مهندس تقنية معلومات" />
+    <meta name="twitter:description" content="الموقع الشخصي لحذيفه عبدالمعز الحذيفي، مهندس تقنية معلومات متخصص في تطوير الويب وقواعد البيانات" />
+    <meta name="twitter:image" content="https://hodifa-portfolio.com/og-image.jpg" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "حذيفه عبدالمعز عبدالرحمان محمد حاتم الحذيفي",
+      "jobTitle": "مهندس تقنية معلومات",
+      "email": "hodifaabdhalmoaz@gmail.com",
+      "telephone": ["+967 777548421", "+967 718706242"],
+      "url": "https://hodifa-portfolio.com",
+      "sameAs": [
+        "https://www.facebook.com/share/1E3T83a8KD/",
+        "https://www.linkedin.com/in/hodifa-al-hodify-30644b289",
+        "https://x.com/moaz_abdh",
+        "https://github.com/HA1234098765",
+        "https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=mwfgwqx"
+      ]
+    }
+    </script>
+
+    <link rel="canonical" href="https://hodifa-portfolio.com" />
+    <script type="module" crossorigin src="/hodifa-tech-profile/assets/js/index-BhsN_nnN.js"></script>
+    <link rel="modulepreload" crossorigin href="/hodifa-tech-profile/assets/js/vendor-C1Y2WV7Q.js">
+    <link rel="modulepreload" crossorigin href="/hodifa-tech-profile/assets/js/ui-nzlcZSHd.js">
+    <link rel="modulepreload" crossorigin href="/hodifa-tech-profile/assets/js/utils-CGj2_KSN.js">
+    <link rel="modulepreload" crossorigin href="/hodifa-tech-profile/assets/js/query-CTiZXktR.js">
+    <link rel="modulepreload" crossorigin href="/hodifa-tech-profile/assets/js/router-BPQi6v4p.js">
+    <link rel="stylesheet" crossorigin href="/hodifa-tech-profile/assets/css/index-DXoDX7gK.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
