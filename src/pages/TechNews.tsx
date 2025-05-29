@@ -29,6 +29,76 @@ interface NewsResponse {
   };
 }
 
+// دالة للحصول على أخبار تجريبية عند عدم توفر API key
+const getFallbackNews = (): NewsResponse => {
+  const fallbackArticles: NewsItem[] = [
+    {
+      title: "تطورات جديدة في الذكاء الاصطناعي وتطبيقاته في التطوير",
+      description: "استكشاف أحدث التقنيات في مجال الذكاء الاصطناعي وكيفية تطبيقها في تطوير البرمجيات والمواقع الإلكترونية.",
+      url: "#",
+      source: "تقنية اليوم",
+      published_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+      category: "technology",
+      author: "فريق التحرير"
+    },
+    {
+      title: "React 19 يجلب ميزات جديدة لتطوير الواجهات",
+      description: "نظرة على الميزات الجديدة في React 19 وكيفية تحسين أداء التطبيقات وتجربة المطورين.",
+      url: "#",
+      source: "مطور ويب",
+      published_at: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+      category: "technology",
+      author: "أحمد محمد"
+    },
+    {
+      title: "أمان المواقع الإلكترونية: أفضل الممارسات لعام 2024",
+      description: "دليل شامل لحماية المواقع الإلكترونية من التهديدات السيبرانية وتطبيق أفضل معايير الأمان.",
+      url: "#",
+      source: "أمان الويب",
+      published_at: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+      category: "technology",
+      author: "سارة أحمد"
+    },
+    {
+      title: "TypeScript 5.3: تحسينات في الأداء والميزات الجديدة",
+      description: "استعراض للتحديثات الجديدة في TypeScript 5.3 وكيفية الاستفادة منها في مشاريع التطوير.",
+      url: "#",
+      source: "برمجة حديثة",
+      published_at: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
+      category: "technology",
+      author: "محمد علي"
+    },
+    {
+      title: "تطوير تطبيقات الهاتف المحمول باستخدام React Native",
+      description: "كيفية بناء تطبيقات هاتف محمول عالية الجودة باستخدام React Native وأفضل الممارسات.",
+      url: "#",
+      source: "تطبيقات الهاتف",
+      published_at: new Date(Date.now() - 10 * 60 * 60 * 1000).toISOString(),
+      category: "technology",
+      author: "فاطمة حسن"
+    },
+    {
+      title: "مستقبل تطوير الويب: اتجاهات 2024",
+      description: "نظرة على أحدث الاتجاهات في تطوير الويب والتقنيات الناشئة التي ستشكل مستقبل الصناعة.",
+      url: "#",
+      source: "مستقبل التقنية",
+      published_at: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
+      category: "technology",
+      author: "عبدالله خالد"
+    }
+  ];
+
+  return {
+    data: fallbackArticles,
+    pagination: {
+      limit: 20,
+      offset: 0,
+      count: fallbackArticles.length,
+      total: fallbackArticles.length
+    }
+  };
+};
+
 
 
 const TechNews = () => {
@@ -42,8 +112,10 @@ const TechNews = () => {
   const fetchNewsWithLanguage = async (): Promise<NewsResponse> => {
     const apiKey = import.meta.env.VITE_API_KEY;
 
+    // إذا لم يكن API key متوفراً، استخدم أخبار تجريبية
     if (!apiKey) {
-      throw new Error('مفتاح API غير متوفر. يرجى التحقق من ملف .env');
+      console.warn('⚠️ مفتاح API غير متوفر، سيتم عرض أخبار تجريبية');
+      return getFallbackNews();
     }
 
     const allArticles: any[] = [];
@@ -131,10 +203,16 @@ const TechNews = () => {
         }
       };
     } catch (error) {
+      console.error('خطأ في جلب الأخبار من API:', error);
+
+      // في حالة فشل API، استخدم الأخبار التجريبية
       if (error instanceof Error) {
-        throw error;
+        console.warn('⚠️ فشل في جلب الأخبار من API، سيتم عرض أخبار تجريبية');
+        return getFallbackNews();
       }
-      throw new Error('خطأ في الاتصال بالشبكة');
+
+      // كحل أخير، ارجع أخبار تجريبية
+      return getFallbackNews();
     }
   };
 
@@ -317,18 +395,23 @@ const TechNews = () => {
             </div>
           </div>
 
-          {/* Error State */}
-          {error && (
+          {/* Info State - Show when using fallback news */}
+          {(!import.meta.env.VITE_API_KEY || error) && news.length > 0 && (
             <div className="mb-8">
-              <Card className="bg-red-900/20 border-red-500/20 max-w-2xl mx-auto">
+              <Card className="bg-amber-900/20 border-amber-500/20 max-w-2xl mx-auto">
                 <CardContent className="p-6 text-center">
-                  <AlertCircle className="w-8 h-8 text-red-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-red-400 mb-2">خطأ في تحميل الأخبار</h3>
+                  <AlertCircle className="w-8 h-8 text-amber-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-amber-400 mb-2">
+                    {!import.meta.env.VITE_API_KEY ? 'أخبار تجريبية' : 'أخبار محفوظة'}
+                  </h3>
                   <p className="text-gray-300 mb-4">
-                    {error instanceof Error ? error.message : 'حدث خطأ غير متوقع'}
+                    {!import.meta.env.VITE_API_KEY
+                      ? 'يتم عرض أخبار تجريبية لأن مفتاح API غير متوفر'
+                      : 'تم عرض أخبار محفوظة بسبب مشكلة في الاتصال'
+                    }
                   </p>
                   <p className="text-sm text-gray-400">
-                    سيتم عرض الأخبار المحفوظة مؤقتاً
+                    لعرض الأخبار الحقيقية، يرجى إضافة مفتاح API في إعدادات المشروع
                   </p>
                 </CardContent>
               </Card>
