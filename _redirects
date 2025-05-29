@@ -1,9 +1,0 @@
-# Redirects for Netlify
-/*    /index.html   200
-
-# Specific redirects
-/contact    /    200
-/about      /    200
-/projects   /    200
-/news       /    200
-/cv         /    200
