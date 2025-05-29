@@ -14,8 +14,28 @@ const Index = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
+  // Fallback avatar as base64 data URL
+  const fallbackAvatar = "data:image/svg+xml;base64," + btoa(`
+    <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#F59E0B"/>
+          <stop offset="100%" style="stop-color:#D97706"/>
+        </linearGradient>
+      </defs>
+      <circle cx="200" cy="200" r="200" fill="url(#bg)"/>
+      <circle cx="200" cy="160" r="60" fill="white" opacity="0.9"/>
+      <path d="M 120 280 Q 120 240 160 240 L 240 240 Q 280 240 280 280 L 280 360 L 120 360 Z" fill="white" opacity="0.9"/>
+      <text x="200" y="220" font-family="Arial" font-size="80" font-weight="bold" text-anchor="middle" fill="#D97706">ح</text>
+    </svg>
+  `);
+
   useEffect(() => {
     setMounted(true);
+    // Debug: Log the base URL and image paths
+    console.log('Base URL:', import.meta.env.BASE_URL);
+    console.log('Profile avatar path:', `${import.meta.env.BASE_URL}images/profile-avatar.svg`);
+    console.log('Environment:', import.meta.env.MODE);
   }, []);
 
   if (!mounted) {
@@ -91,44 +111,33 @@ const Index = () => {
                 <div className="absolute inset-4 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-500">
                   {!imageError ? (
                     <img
-                      src={`${import.meta.env.BASE_URL}images/profile-new.jpg`}
+                      src={fallbackAvatar}
                       alt="حذيفه عبدالمعز الحذيفي"
                       className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
-                      onLoad={() => setImageLoaded(true)}
+                      onLoad={() => {
+                        setImageLoaded(true);
+                        console.log('Profile avatar loaded successfully');
+                      }}
                       onError={() => {
-                        console.log('Primary image failed, trying fallback...');
+                        console.log('Even fallback avatar failed, showing text');
                         setImageError(true);
                       }}
                     />
                   ) : (
-                    <img
-                      src={`${import.meta.env.BASE_URL}images/profile-fallback.svg`}
-                      alt="حذيفه عبدالمعز الحذيفي"
-                      className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
-                      onError={() => {
-                        // Final fallback - show avatar with initial
-                        const target = document.querySelector('.profile-container .fallback-avatar');
-                        if (!target) {
-                          const parent = document.querySelector('.profile-container .absolute.inset-4');
-                          if (parent) {
-                            parent.innerHTML = `
-                              <div class="fallback-avatar w-full h-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-6xl font-bold text-white rounded-full">
-                                ح
-                              </div>
-                            `;
-                          }
-                        }
-                      }}
-                    />
+                    <div className="w-full h-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-6xl font-bold text-white rounded-full shadow-2xl">
+                      <span className="drop-shadow-lg">ح</span>
+                    </div>
                   )}
+
                   {/* Loading indicator */}
                   {!imageLoaded && !imageError && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center rounded-full">
                       <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white"></div>
                     </div>
                   )}
+
                   {/* Overlay Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
                 </div>
               </div>
               
