@@ -11,6 +11,8 @@ import PDFDownload from "@/components/PDFDownload";
 const Index = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -80,22 +82,51 @@ const Index = () => {
 
             {/* Right Content - Enhanced Profile Image */}
             <div className="relative animate-fade-in delay-700">
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96 mx-auto group">
+              <div className="profile-container relative w-80 h-80 lg:w-96 lg:h-96 mx-auto group">
                 {/* Animated Border */}
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-500/30 to-amber-600/30 rounded-full animate-spin-slow"></div>
                 <div className="absolute inset-2 bg-gradient-to-br from-gray-800 to-gray-900 dark:from-gray-800 dark:to-gray-900 light:from-white light:to-gray-100 rounded-full transition-all duration-500"></div>
                 
                 {/* Profile Image */}
                 <div className="absolute inset-4 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-500">
-                  <img
-                    src="/images/profile-new.jpg"
-                    alt="حذيفه عبدالمعز الحذيفي"
-                    className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
-                    onError={(e) => {
-                      // Fallback to old image if new one fails to load
-                      (e.target as HTMLImageElement).src = "/lovable-uploads/1b7275d0-9db2-4ece-951a-c68c19378349.png";
-                    }}
-                  />
+                  {!imageError ? (
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/profile-new.jpg`}
+                      alt="حذيفه عبدالمعز الحذيفي"
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
+                      onLoad={() => setImageLoaded(true)}
+                      onError={() => {
+                        console.log('Primary image failed, trying fallback...');
+                        setImageError(true);
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/profile-fallback.svg`}
+                      alt="حذيفه عبدالمعز الحذيفي"
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
+                      onError={() => {
+                        // Final fallback - show avatar with initial
+                        const target = document.querySelector('.profile-container .fallback-avatar');
+                        if (!target) {
+                          const parent = document.querySelector('.profile-container .absolute.inset-4');
+                          if (parent) {
+                            parent.innerHTML = `
+                              <div class="fallback-avatar w-full h-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-6xl font-bold text-white rounded-full">
+                                ح
+                              </div>
+                            `;
+                          }
+                        }
+                      }}
+                    />
+                  )}
+                  {/* Loading indicator */}
+                  {!imageLoaded && !imageError && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white"></div>
+                    </div>
+                  )}
                   {/* Overlay Effect */}
                   <div className="absolute inset-0 bg-gradient-to-t from-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
