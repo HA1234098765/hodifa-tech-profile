@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حذيفه الحذيفي - مهندس تقنية معلومات</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .avatar:hover { 
+            transform: scale(1.1) rotate(15deg); 
+        }
+        h1 { 
+            font-size: 2rem; 
+            margin: 20px 0 10px; 
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .title { 
+            font-size: 1.1rem; 
+            opacity: 0.8; 
+            margin-bottom: 20px; 
+        }
+        .desc { 
+            line-height: 1.6; 
+            margin-bottom: 30px; 
+            opacity: 0.9; 
+        }
+        .links { 
+            display: flex; 
+            gap: 15px; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
+        }
+        .contact-info {
+            font-size: 0.9rem; 
+            opacity: 0.7;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        .redirect-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        @media (max-width: 600px) {
+            .container { 
+                padding: 20px; 
+                margin: 10px; 
+            }
+            h1 { 
+                font-size: 1.5rem; 
+            }
+            .links { 
+                flex-direction: column; 
+                align-items: center; 
+            }
+            .btn {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="redirect-info">
+            🔄 جاري إعادة التوجيه إلى الصفحة الرئيسية...
+        </div>
+        
+        <div class="avatar" onclick="this.style.transform='rotate(360deg) scale(1.2)'; setTimeout(()=>this.style.transform='', 1000)">ح</div>
+        
+        <h1>حذيفه عبدالمعز الحذيفي</h1>
+        <div class="title">مهندس تقنية معلومات</div>
+        
+        <div class="desc">
+            مرحباً بكم في موقعي الشخصي. أنا مهندس تقنية معلومات متخصص في تطوير الويب وقواعد البيانات.
+            أسعى لتطوير حلول تقنية مبتكرة وفعالة.
+        </div>
+        
+        <div class="links">
+            <a href="mailto:hodifaabdhalmoaz@gmail.com" class="btn">📧 البريد الإلكتروني</a>
+            <a href="https://github.com/HA1234098765" class="btn" target="_blank">💻 GitHub</a>
+            <a href="https://www.linkedin.com/in/hodifa-al-hodify-30644b289" class="btn" target="_blank">💼 LinkedIn</a>
+        </div>
+        
+        <div class="contact-info">
+            📱 +967 777548421 | 📱 +967 718706242
+        </div>
+    </div>
+
+    <script>
+        // إعادة توجيه تلقائية إلى الصفحة الرئيسية
+        setTimeout(function() {
+            window.location.href = '/hodifa-tech-profile/';
+        }, 3000);
+        
+        // إعادة توجيه فورية إذا كان المستخدم يحاول الوصول لصفحة فرعية
+        var path = window.location.pathname;
+        if (path !== '/hodifa-tech-profile/' && path !== '/hodifa-tech-profile/404.html') {
+            window.location.href = '/hodifa-tech-profile/';
+        }
+    </script>
+</body>
+</html>
