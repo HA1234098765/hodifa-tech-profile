@@ -1,0 +1,36 @@
+# Netlify redirects file for SPA routing
+# This file handles client-side routing for React Router
+
+# Redirect all routes to index.html for SPA routing
+/*    /index.html   200
+
+# API redirects (if needed in future)
+/api/*  https://api.example.com/:splat  200
+
+# Force HTTPS
+http://hodifa-tech-profile.netlify.app/*  https://hodifa-tech-profile.netlify.app/:splat  301!
+
+# Custom domain redirects (if you get a custom domain)
+# http://yourdomain.com/*  https://yourdomain.com/:splat  301!
+
+# Specific route redirects
+/home  /  301
+/portfolio  /projects  301
+/cv  /about  301
+
+# File extensions
+/favicon.ico  /favicon.ico  200
+/robots.txt  /robots.txt  200
+/sitemap.xml  /sitemap.xml  200
+
+# Assets
+/assets/*  /assets/:splat  200
+/images/*  /images/:splat  200
+/css/*  /css/:splat  200
+/js/*  /js/:splat  200
+
+# Service Worker
+/sw.js  /sw.js  200
+
+# CV files
+/cv/*  /cv/:splat  200
