@@ -22,17 +22,17 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
+          ui: ['@radix-ui/react-toast', '@radix-ui/react-tooltip', '@radix-ui/react-slot'],
           router: ['react-router-dom'],
           query: ['@tanstack/react-query'],
+          utils: ['clsx', 'tailwind-merge', 'class-variance-authority'],
         },
         assetFileNames: (assetInfo) => {
-          const info = assetInfo.name.split('.');
-          const extType = info[info.length - 1];
-          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+          const fileName = assetInfo.names?.[0] || 'asset';
+          if (/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i.test(fileName)) {
             return `assets/images/[name]-[hash][extname]`;
           }
-          if (/css/i.test(extType)) {
+          if (/\.css$/i.test(fileName)) {
             return `assets/css/[name]-[hash][extname]`;
           }
           return `assets/[name]-[hash][extname]`;

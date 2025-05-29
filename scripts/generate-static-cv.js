@@ -1,6 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const { jsPDF } = require('jspdf');
+import fs from 'fs';
+import path from 'path';
+import { jsPDF } from 'jspdf';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // إنشاء ملف PDF ثابت للسيرة الذاتية
 function generateStaticCV() {
@@ -208,8 +212,8 @@ function generateStaticCV() {
 }
 
 // تشغيل الدالة إذا تم استدعاء الملف مباشرة
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   generateStaticCV();
 }
 
-module.exports = { generateStaticCV };
+export { generateStaticCV };
